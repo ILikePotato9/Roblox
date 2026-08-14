@@ -41,6 +41,27 @@ title.Size = UDim2.new(0.8,0,1,0)
 title.TextXAlignment = Enum.TextXAlignment.Left
 title.TextColor3 = Color3.fromHex("ffffff")
 title.Parent = topbar
+local topbuttonframe = Instance.new("Frame")
+topbuttonframe.BackgroundTransparency = 1
+topbuttonframe.Size = UDim2.new(0.2,0,1,0)
+topbuttonframe.Position = UDim2.new(0.8,0,0,0)
+topbuttonframe.Parent = topbar
+local hidebtn = Instance.new("TextButton")
+hidebtn.Text = "-"
+hidebtn.Size = UDim2.new(0.5,0,1,0)
+hidebtn.Position = UDim2.new(0,0,0,0)
+hidebtn.TextScaled = true
+hidebtn.BackgroundTransparency = 1
+hidebtn.TextColor3 = Color3.fromHex("ffffff")
+hidebtn.Parent = topbuttonframe
+local closebtn = Instance.new("TextButton")
+closebtn.Text = "X"
+closebtn.Size = UDim2.new(0.5,0,1,0)
+closebtn.Position = UDim2.new(0.5,0,0,0)
+closebtn.TextScaled = true
+closebtn.TextColor3 = Color3.fromHex("ffffff")
+closebtn.BackgroundTransparency = 1
+closebtn.Parent = topbuttonframe
 local function openGui()
     openbtn.Visible = false
     mainframe.Visible = true
@@ -53,3 +74,5 @@ local function quitGui()
     screengui:Destroy()
 end
 openbtn.Activated:Connect(openGui)
+hidebtn.Activated:Conenct(closeGui)
+closebtn.Activated:Connect(quitGui)
