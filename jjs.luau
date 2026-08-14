@@ -43,9 +43,11 @@ title.TextColor3 = Color3.fromHex("ffffff")
 title.Parent = topbar
 local function openGui()
     openbtn.Visible = false
+    mainframe.Visible = true
 end
 local function closeGui()
     openbtn.Visible = true
+    mainframe.Visible = false
 end
 local function quitGui()
     screengui:Destroy()
