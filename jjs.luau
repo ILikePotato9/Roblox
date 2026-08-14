@@ -31,6 +31,7 @@ title.TextScaled = true
 title.Size = UDim2.new(0.8,0,1,0)
 title.TextXAlignment = Enum.TextXAlignment.Left
 title.TextColor3 = Color3.fromHex("ffffff")
+title.BackgroundTransparency = 1
 title.Parent = topbar
 local topbuttonframe = Instance.new("Frame")
 topbuttonframe.BackgroundTransparency = 1
