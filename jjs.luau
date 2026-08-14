@@ -20,15 +20,6 @@ mainframe.Size = UDim2.new(0.5,0,0.5,0)
 mainframe.AnchorPoint = Vector2.new(0.5,0.5)
 mainframe.Position = UDim2.new(0.5,0,0.5,0)
 mainframe.Parent = screengui
-local maincorner = Instance.new("UICorner")
-maincorner.CornerRadius = UDim.new(0,8)
-maincorner.Parent = mainframe
-local mainpadding = Instance.new("UIPadding")
-mainpadding.PaddingTop = UDim.new(0, 8)
-mainpadding.PaddingBottom = UDim.new(0, 8)
-mainpadding.PaddingLeft = UDim.new(0, 8)
-mainpadding.PaddingRight = UDim.new(0, 8)
-mainpadding.Parent = mainframe
 local topbar = Instance.new("Frame")
 topbar.Size = UDim2.new(1,0,0.1,0)
 topbar.Position = UDim2.new(0,0,0,0)
@@ -74,5 +65,5 @@ local function quitGui()
     screengui:Destroy()
 end
 openbtn.Activated:Connect(openGui)
-hidebtn.Activated:Conenct(closeGui)
+hidebtn.Activated:Connect(closeGui)
 closebtn.Activated:Connect(quitGui)
