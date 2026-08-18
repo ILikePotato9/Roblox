@@ -8,6 +8,7 @@ local colors = {
     [true] = Color3.fromHex("00ff00"),
     [false] = Color3.fromHex("ff0000")
 }
+local npcs = game:GetService("Workspace"):WaitForChild("_NPCS_")
 -- Gui
 local screengui = Instance.new("ScreenGui")
 screengui.ResetOnSpawn = false
@@ -132,4 +133,20 @@ quitbtn.Activated:Connect(close)
 luminbtn.Activated:Connect(function()
     luminespon = not luminespon
     luminframe.BackgroundColor3 = colors[luminespon]
+    if luminespon then
+        for _,child in ipairs(npcs:GetChildren()) do
+            local highlight = Instance.new("Highlight")
+            highlight.Name = "superSecretEsp"
+            highlight.FillTransparency = 0.5
+            highlight.Parent = child
+        end
+    end
+end)
+npcs.ChildAdded:Connect(function(child)
+    if child.Name:lower():find("lumin") and luminespon then
+        local highlight = Instance.new("Highlight")
+        highlight.Name = "superSecretEsp"
+        highlight.FillTransparency = 0.5
+        highlight.Parent = child
+    end
 end)
