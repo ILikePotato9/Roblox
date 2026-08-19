@@ -9,6 +9,13 @@ local colors = {
     [false] = Color3.fromHex("ff0000")
 }
 local npcs = game:GetService("Workspace"):WaitForChild("_NPCS_")
+local lumincolors = {
+    ["Green Lumin"] = Color3.fromHex("00ff00"),
+    ["Purple Lumin"] = Color3.fromHex("ff00ff"),
+    ["Red Lumin"] = Color3.fromHex("ff0000"),
+    ["White Lumin"] = Color3.fromHex("ffffff"),
+    ["Worm Lumin"] = Color3.fromHex("00ffff"),
+}
 -- Gui
 local screengui = Instance.new("ScreenGui")
 screengui.ResetOnSpawn = false
@@ -135,18 +142,28 @@ luminbtn.Activated:Connect(function()
     luminframe.BackgroundColor3 = colors[luminespon]
     if luminespon then
         for _,child in ipairs(npcs:GetChildren()) do
-            local highlight = Instance.new("Highlight")
-            highlight.Name = "superSecretEsp"
-            highlight.FillTransparency = 0.5
-            highlight.Parent = child
+            if child.Name:lower():find("lumin") and luminespon then
+                local highlight = Instance.new("Highlight")
+                highlight.Name = "superSecretEspL"
+                highlight.FillTransparency = 0.5
+                highlight.FillColor = lumincolors[child.Name]
+                highlight.Parent = child
+            end
+        end
+    else
+        for _,decendant in ipairs(npcs:GetChildren()) do
+            if decendant.Name == "superSecretEspL" then
+                decendant:Destroy()
+            end
         end
     end
 end)
 npcs.ChildAdded:Connect(function(child)
     if child.Name:lower():find("lumin") and luminespon then
         local highlight = Instance.new("Highlight")
-        highlight.Name = "superSecretEsp"
+        highlight.Name = "superSecretEspL"
         highlight.FillTransparency = 0.5
+        highlight.FillColor = lumincolors[child.Name]
         highlight.Parent = child
     end
 end)
