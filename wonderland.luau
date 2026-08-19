@@ -4,6 +4,7 @@ local players = game:GetService("Players")
 local player = players.LocalPlayer
 local playergui = player:WaitForChild("PlayerGui")
 local luminespon = false
+local monsterespon = false
 local colors = {
     [true] = Color3.fromHex("00ff00"),
     [false] = Color3.fromHex("ff0000")
@@ -15,6 +16,11 @@ local lumincolors = {
     ["Red Lumin"] = Color3.fromHex("ff0000"),
     ["White Lumin"] = Color3.fromHex("ffffff"),
     ["Worm Lumin"] = Color3.fromHex("00ffff"),
+}
+local monstercolors = {
+    ["Owl"] = Color3.fromHex("800000"),
+    ["Bomb"] = Color3.fromHex("000000"),
+    ["Smiley"] = Color3.fromHex("ffff00")
 }
 -- Gui
 local screengui = Instance.new("ScreenGui")
@@ -121,6 +127,28 @@ luminbtn.Text = ""
 luminbtn.Size = UDim2.new(1,0,1,0)
 luminbtn.BackgroundTransparency = 1
 luminbtn.Parent = luminesp
+local monsteresp = Instance.new("Frame")
+monsteresp.BackgroundColor3 = Color3.fromHex("000000")
+monsteresp.Size = UDim2.new(1,0,0,45)
+monsteresp.Parent = main
+local monstertext = Instance.new("TextLabel")
+monstertext.Text = "Monster esp"
+monstertext.Size = UDim2.new(0.9,0,1,0)
+monstertext.TextScaled = true
+monstertext.TextXAlignment = Enum.TextXAlignment.Left
+monstertext.TextColor3 = Color3.fromHex("ffffff")
+monstertext.BackgroundTransparency = 1
+monstertext.Parent = monsteresp
+local monsterframe = Instance.new("Frame")
+monsterframe.Size = UDim2.new(0.1,0,1,0)
+monsterframe.Position = UDim2.new(0.9,0,0,0)
+monsterframe.BackgroundColor3 = Color3.fromHex("ff0000")
+monsterframe.Parent = monsteresp
+local monsterbtn = Instance.new("TextButton")
+monsterbtn.Size = UDim2.new(1,0,1,0)
+monsterbtn.Text = ""
+monsterbtn.BackgroundTransparency = 1
+monsterbtn.Parent = monsteresp
 -- Functions
 local function show()
     openbtn.Visible = false
@@ -131,6 +159,12 @@ local function hide()
     mainframe.Visible = false
 end
 local function close()
+    luminespon = false
+    for _,decendant in ipairs(npcs:GetDecendants()) do
+        if decendant.Name == "superSecretEspL" or decendant.Name == "superSecretEspM" then
+            decendant:Destroy()
+        end
+    end
     screengui:Destroy()
 end
 -- Events
@@ -151,8 +185,29 @@ luminbtn.Activated:Connect(function()
             end
         end
     else
-        for _,decendant in ipairs(npcs:GetChildren()) do
+        for _,decendant in ipairs(npcs:GetDecendants()) do
             if decendant.Name == "superSecretEspL" then
+                decendant:Destroy()
+            end
+        end
+    end
+end)
+monsterbtn.Activated:Connect(function()
+    monsterespon = not monsterespon
+    monsterframe.BackgroundColor3 = colors[monsterespon]
+    if monsterespon then
+        for _,child in ipairs(npcs:GetChildren()) do
+            if not child.Name:lower():find("lumin") and child.Name ~= "Zippy" then
+                local highlight = Instance.new("Highlight")
+                highlight.Name = "superSecretEspM"
+                highlight.FillTransparency = 0.5
+                highlight.FillColor = monstercolors[child.Name]
+                highlight.Parent = child
+            end
+        end
+    else
+        for _,decendant in ipairs(npcs:GetDecendants()) do
+            if decendant.Name == "superSecretEspM" then
                 decendant:Destroy()
             end
         end
@@ -164,6 +219,13 @@ npcs.ChildAdded:Connect(function(child)
         highlight.Name = "superSecretEspL"
         highlight.FillTransparency = 0.5
         highlight.FillColor = lumincolors[child.Name]
+        highlight.Parent = child
+    end
+    if not child.Name:lower():find("lumin") and child.Name ~= "Zippy" and monsterespon then
+        local highlight = Instance.new("Highlight")
+        highlight.Name = "superSecretEspM"
+        highlight.FillTransparency = 0.5
+        highlight.FillColor = monstercolors[child.Name]
         highlight.Parent = child
     end
 end)
