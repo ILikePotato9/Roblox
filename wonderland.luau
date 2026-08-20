@@ -15,12 +15,13 @@ local lumincolors = {
     ["Purple Lumin"] = Color3.fromHex("ff00ff"),
     ["Red Lumin"] = Color3.fromHex("ff0000"),
     ["White Lumin"] = Color3.fromHex("ffffff"),
-    ["Worm Lumin"] = Color3.fromHex("00ffff"),
+    ["Worm Lumin"] = Color3.fromHex("00ffff")
 }
 local monstercolors = {
     ["Owl"] = Color3.fromHex("800000"),
-    ["Bomb"] = Color3.fromHex("000000"),
-    ["Smiley"] = Color3.fromHex("ffff00")
+    ["Bomb"] = Color3.fromHex("000000"),    
+    ["Smiley"] = Color3.fromHex("ffff00"),
+    ["Gnome"] = Color3.fromHex("101000")
 }
 -- Gui
 local screengui = Instance.new("ScreenGui")
@@ -199,6 +200,7 @@ monsterbtn.Activated:Connect(function()
         for _,child in ipairs(npcs:GetChildren()) do
             if not child.Name:lower():find("lumin") and child.Name ~= "Zippy" then
                 local highlight = Instance.new("Highlight")
+                print(child.Name)
                 highlight.Name = "superSecretEspM"
                 highlight.FillTransparency = 0.5
                 highlight.FillColor = monstercolors[child.Name]
@@ -223,6 +225,7 @@ npcs.ChildAdded:Connect(function(child)
     end
     if not child.Name:lower():find("lumin") and child.Name ~= "Zippy" and monsterespon then
         local highlight = Instance.new("Highlight")
+        print(child.Name)
         highlight.Name = "superSecretEspM"
         highlight.FillTransparency = 0.5
         highlight.FillColor = monstercolors[child.Name]
